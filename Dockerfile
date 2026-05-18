@@ -12,7 +12,7 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-COPY build/libs/igloo.jar igloo.jar
+COPY --from=build /app/build/libs/igloo.jar igloo.jar
 
 VOLUME /tmp
 
