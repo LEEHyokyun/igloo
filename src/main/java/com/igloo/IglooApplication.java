@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class IglooApplication {
     public static void main(String[] args) {
 
-        System.out.println("DB_PASSWORD = " + System.getenv("DB_PASSWORD"));
-
         SpringApplication.run(IglooApplication.class, args);
     }
 }
