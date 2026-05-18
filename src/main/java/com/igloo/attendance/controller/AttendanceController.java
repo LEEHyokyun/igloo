@@ -26,7 +26,6 @@ public class AttendanceController {
 
     @PostMapping("/create")
     public AttendanceCreateResponse create(@RequestBody AttendanceCreateRequest request){
-
         return attendanceService.create(request);
     }
 
