@@ -1,4 +1,4 @@
-package com.igloo.attendance.infra.jdbc;
+package com.igloo.attendance.infra.render;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-public class EnvConfigs {
+public class EnvVariables {
     @Bean
     public DataSource dataSource() {
         HikariDataSource ds = new HikariDataSource();
