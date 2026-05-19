@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 public enum AttendanceOptions {
     Y("출석"),
     N("불참"),
-    NONE("NO OPTIONS");
+    N("NO OPTIONS");
 
     private final String option;
 
@@ -23,7 +23,7 @@ public enum AttendanceOptions {
         }
 
         log.error("[ERROR][TimeSelections.from] No attendance options found={}", option);
-        return AttendanceOptions.NONE;
+        return AttendanceOptions.N;
 
     }
 }
