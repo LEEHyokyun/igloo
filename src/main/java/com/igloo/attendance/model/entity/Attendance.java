@@ -1,6 +1,7 @@
 package com.igloo.attendance.model.entity;
 
 import com.igloo.attendance.model.request.AttendanceCreateRequest;
+import com.igloo.common.util.AttendanceOptions;
 import com.igloo.common.util.TimeSelections;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,9 @@ public class Attendance {
     private Long attendanceId;
 
     private String attendanceName;
-    private String attendanceStatus;
+
+    @Enumerated(EnumType.STRING)
+    private AttendanceOptions attendanceStatus;
 
     @Enumerated(EnumType.STRING)
     private TimeSelections attendanceTime;
@@ -36,7 +39,7 @@ public class Attendance {
         Attendance attendance = new Attendance();
 
         attendance.attendanceName = attendanceName;
-        attendance.attendanceStatus = attendanceStatus;
+        attendance.attendanceStatus = AttendanceOptions.from(attendanceStatus);
         attendance.attendanceTime = TimeSelections.from(attendanceTime);
         attendance.reason = reason;
         attendance.createdAt = LocalDateTime.now();
@@ -46,7 +49,7 @@ public class Attendance {
     }
 
     public Attendance update(String attendanceStatus, Long attendanceTime, String reason){
-        this.attendanceStatus = attendanceStatus;
+        this.attendanceStatus = AttendanceOptions.from(attendanceStatus);;
         this.attendanceTime = TimeSelections.from(attendanceTime);
         this.reason = reason;
         this.updatedAt = LocalDateTime.now();

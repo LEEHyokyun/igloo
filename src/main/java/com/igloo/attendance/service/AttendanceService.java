@@ -22,7 +22,8 @@ public class AttendanceService {
         Attendance attendance = attendanceRepository.findByAttendanceName(attendanceCreateRequest.attendanceName());
 
         if(attendance == null){
-            attendance = attendanceRepository.save(Attendance.create(
+            attendance = attendanceRepository.save(
+                    Attendance.create(
                     attendanceCreateRequest.attendanceName(),
                     attendanceCreateRequest.attendanceStatus(),
                     attendanceCreateRequest.attendanceTime(),
