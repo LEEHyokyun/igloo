@@ -24,9 +24,9 @@ public class AttendanceController {
         return String.format("Now Working");
     }
 
-    @PostMapping("/create")
-    public AttendanceCreateResponse create(@RequestBody AttendanceCreateRequest request){
-        return attendanceService.create(request);
+    @PostMapping("/save")
+    public AttendanceCreateResponse save(@RequestBody AttendanceCreateRequest request){
+        return attendanceService.save(request);
     }
 
 }

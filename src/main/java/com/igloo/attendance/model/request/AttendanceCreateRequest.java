@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.ToString;
 
 public record AttendanceCreateRequest (
-        String attenderName,
-        String attenderStatus,
+        String attendanceName,
+        String attendanceStatus,
+        long attendanceTime,
         String reason
 ) {
 

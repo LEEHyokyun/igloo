@@ -1,6 +1,7 @@
 package com.igloo.attendance.model.entity;
 
 import com.igloo.attendance.model.request.AttendanceCreateRequest;
+import com.igloo.common.util.TimeSelections;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,8 +19,11 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attendanceId;
 
-    private String attenderName;
-    private String attenderStatus;
+    private String attendanceName;
+    private String attendanceStatus;
+
+    @Enumerated(EnumType.STRING)
+    private TimeSelections attendanceTime;
     private String reason;
 
     private LocalDateTime createdAt;
@@ -29,8 +33,9 @@ public class Attendance {
 
         Attendance attendance = new Attendance();
 
-        attendance.attenderName = attendanceCreateRequest.attenderName();
-        attendance.attenderStatus = attendanceCreateRequest.attenderStatus();
+        attendance.attendanceName = attendanceCreateRequest.attendanceName();
+        attendance.attendanceStatus = attendanceCreateRequest.attendanceStatus();
+        attendance.attendanceTime = TimeSelections.from(attendanceCreateRequest.attendanceTime());
         attendance.reason = attendanceCreateRequest.reason();
         attendance.createdAt = LocalDateTime.now();
         attendance.updatedAt = attendance.createdAt;

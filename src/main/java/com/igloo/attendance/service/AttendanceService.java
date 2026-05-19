@@ -17,7 +17,7 @@ public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
 
     @Transactional
-    public AttendanceCreateResponse create(AttendanceCreateRequest attendanceCreateRequest) {
+    public AttendanceCreateResponse save(AttendanceCreateRequest attendanceCreateRequest) {
         return AttendanceCreateResponse.from(
             attendanceRepository.save(Attendance.create(attendanceCreateRequest))
         );
