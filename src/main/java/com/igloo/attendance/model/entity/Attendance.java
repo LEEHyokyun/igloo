@@ -6,9 +6,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Getter
 @Entity
 @Table(name = "attendance")
@@ -30,6 +32,8 @@ public class Attendance {
     private LocalDateTime updatedAt;
 
     public static Attendance create(AttendanceCreateRequest attendanceCreateRequest) {
+
+        log.info("attendanceCreateRequest attendance time 확인 : {}", attendanceCreateRequest.attendanceTime());
 
         Attendance attendance = new Attendance();
 
