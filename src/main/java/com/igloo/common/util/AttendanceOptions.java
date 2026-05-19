@@ -16,9 +16,9 @@ public enum AttendanceOptions {
 
     public static AttendanceOptions from(String option){
 
-        for (AttendanceOptions timeSelection : values()) {
-            if (timeSelection.option.equals(option)) {
-                return timeSelection;
+        for (AttendanceOptions attendanceOption : values()) {
+            if (attendanceOption.option.equals(option)) {
+                return attendanceOption;
             }
         }
 
