@@ -22,7 +22,7 @@ public record AttendanceCreateResponse (
         return new AttendanceCreateResponse(
                 attendance.getAttendanceId(),
                 attendance.getAttendanceName(),
-                attendance.getAttendanceStatus(),
+                attendance.getAttendanceStatus().getOption(),
                 attendance.getAttendanceTime().getTime(),
                 attendance.getReason(),
                 attendance.getCreatedAt(),
