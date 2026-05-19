@@ -18,9 +18,28 @@ public class AttendanceService {
 
     @Transactional
     public AttendanceCreateResponse save(AttendanceCreateRequest attendanceCreateRequest) {
-        return AttendanceCreateResponse.from(
-            attendanceRepository.save(Attendance.create(attendanceCreateRequest))
-        );
+
+        Attendance attendance = attendanceRepository.findByAttendanceName(attendanceCreateRequest.attendanceName());
+
+        if(attendance == null){
+            attendance = attendanceRepository.save(Attendance.create(
+                    attendanceCreateRequest.attendanceName(),
+                    attendanceCreateRequest.attendanceStatus(),
+                    attendanceCreateRequest.attendanceTime(),
+                    attendanceCreateRequest.reason()
+                )
+            );
+        }else {
+            attendance = attendance.update(
+                    attendanceCreateRequest.attendanceStatus(),
+                    attendanceCreateRequest.attendanceTime(),
+                    attendanceCreateRequest.reason()
+            );
+
+            attendanceRepository.save(attendance);
+        }
+
+        return AttendanceCreateResponse.from(attendance);
     }
 
 }

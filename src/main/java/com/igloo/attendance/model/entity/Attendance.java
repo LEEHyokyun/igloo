@@ -31,18 +31,26 @@ public class Attendance {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public static Attendance create(AttendanceCreateRequest attendanceCreateRequest) {
+    public static Attendance create(String attendanceName, String attendanceStatus, Long attendanceTime, String reason) {
 
         Attendance attendance = new Attendance();
 
-        attendance.attendanceName = attendanceCreateRequest.attendanceName();
-        attendance.attendanceStatus = attendanceCreateRequest.attendanceStatus();
-        attendance.attendanceTime = TimeSelections.from(attendanceCreateRequest.attendanceTime());
-        attendance.reason = attendanceCreateRequest.reason();
+        attendance.attendanceName = attendanceName;
+        attendance.attendanceStatus = attendanceStatus;
+        attendance.attendanceTime = TimeSelections.from(attendanceTime);
+        attendance.reason = reason;
         attendance.createdAt = LocalDateTime.now();
         attendance.updatedAt = attendance.createdAt;
 
         return attendance;
     }
 
+    public Attendance update(String attendanceStatus, Long attendanceTime, String reason){
+        this.attendanceStatus = attendanceStatus;
+        this.attendanceTime = TimeSelections.from(attendanceTime);
+        this.reason = reason;
+        this.updatedAt = LocalDateTime.now();
+
+        return this;
+    }
 }
