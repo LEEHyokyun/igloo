@@ -18,9 +18,6 @@ public class AttendanceService {
 
     @Transactional
     public AttendanceCreateResponse save(AttendanceCreateRequest attendanceCreateRequest) {
-
-        log.info("Service에서 attendance time 확인  {}", attendanceCreateRequest.attendanceTime());
-
         return AttendanceCreateResponse.from(
             attendanceRepository.save(Attendance.create(attendanceCreateRequest))
         );

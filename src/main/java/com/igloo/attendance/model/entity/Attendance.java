@@ -33,8 +33,6 @@ public class Attendance {
 
     public static Attendance create(AttendanceCreateRequest attendanceCreateRequest) {
 
-        log.info("attendanceCreateRequest attendance time 확인 : {}", attendanceCreateRequest.attendanceTime());
-
         Attendance attendance = new Attendance();
 
         attendance.attendanceName = attendanceCreateRequest.attendanceName();
