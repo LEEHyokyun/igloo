@@ -17,18 +17,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
     Attendance findByAttendanceName(MemberNames attendanceName);
 
     /*
-    * JPQL
-    * */
-    @Query(
-                    " select a.attendanceName " +
-                    " from Attendance a " +
-                    " where a.attendanceTime = :attendanceTime"
-    )
-    List<String> findAttendancesByAttendanceTime(
-            @Param("attendanceTime") TimeSelections attendanceTime
-    );
-
-    /*
      * JPQL
      * */
     @Query(

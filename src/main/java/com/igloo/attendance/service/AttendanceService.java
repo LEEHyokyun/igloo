@@ -13,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -21,15 +24,55 @@ public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
 
     public AttendanceSelectResponse select(){
+
+        List<Attendance> attendances = attendanceRepository.findAll();
+
+        Map<TimeSelections,List<String>> groupedAttendances =
+                attendances.stream()
+                        .collect(Collectors.groupingBy(
+                                Attendance::getAttendanceTime,
+                                Collectors.mapping(
+                                        attendance -> attendance.getAttendanceName().name(),
+                                        Collectors.toList()
+                                )
+                        ));
+
+        //응답
+        Set<MemberNames> responsers = attendances.stream()
+                .map(Attendance::getAttendanceName)
+                .collect(Collectors.toSet());
+
+        //미응답/지각
+        List<String> noResponsers = Arrays.stream(MemberNames.values())
+                .filter(member -> !responsers.contains(member))
+                .map(MemberNames::name)
+                .toList();
+
+        //summarized
+        List<String> option1AttenderList =
+                groupedAttendances.getOrDefault(TimeSelections.OPTION1, List.of());
+
+        List<String> option2AttenderList =
+                groupedAttendances.getOrDefault(TimeSelections.OPTION2, List.of());
+
+        List<String> option3AttenderList =
+                groupedAttendances.getOrDefault(TimeSelections.OPTION3, List.of());
+
+        List<String> absenceList =
+                groupedAttendances.getOrDefault(TimeSelections.NONE, List.of());
+
+
         return AttendanceSelectResponse.from(
-            attendanceRepository.findAttendancesByAttendanceTime(TimeSelections.OPTION1),
-            attendanceRepository.findAttendancesByAttendanceTime(TimeSelections.OPTION2),
-            attendanceRepository.findAttendancesByAttendanceTime(TimeSelections.OPTION3),
-            attendanceRepository.findAttendancesByAttendanceTime(TimeSelections.NONE),
-            attendanceRepository.countOfAttendances(TimeSelections.OPTION1),
-            attendanceRepository.countOfAttendances(TimeSelections.OPTION2),
-            attendanceRepository.countOfAttendances(TimeSelections.OPTION3),
-            attendanceRepository.countOfAttendances(TimeSelections.NONE)
+                option1AttenderList,
+                option2AttenderList,
+                option3AttenderList,
+                absenceList,
+                noResponsers,
+                option1AttenderList.size(),
+                option2AttenderList.size(),
+                option3AttenderList.size(),
+                absenceList.size(),
+                noResponsers.size()
         );
     }
 
