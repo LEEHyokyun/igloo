@@ -1,7 +1,6 @@
 package com.igloo.attendance.repository;
 
 import com.igloo.attendance.model.entity.Attendance;
-import com.igloo.attendance.model.response.AttendanceSelectObject;
 import com.igloo.common.attendance.util.MemberNames;
 import com.igloo.common.attendance.util.TimeSelections;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,11 +20,11 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
     * JPQL
     * */
     @Query(
-                    " select a.attendanceId " +
+                    " select a.attendanceName " +
                     " from Attendance a " +
                     " where a.attendanceTime = :attendanceTime"
     )
-    List<Attendance> findAttendancesByAttendanceTime(
+    List<String> findAttendancesByAttendanceTime(
             @Param("attendanceTime") TimeSelections attendanceTime
     );
 
