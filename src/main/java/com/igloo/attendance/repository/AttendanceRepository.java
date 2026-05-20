@@ -17,37 +17,30 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
 
     Attendance findByAttendanceName(MemberNames attendanceName);
 
+    /*
+    * JPQL
+    * */
     @Query(
-            value = " select a.attendance_name " +
-                    " from attendance a " +
+                    " select a.attendanceId " +
+                    " from Attendance a " +
                     " where 1=1 " +
-                    " and a.attendance_time = :attendanceTime",
-            nativeQuery = true
+                    " and a.attendanceTime = :attendanceTime"
     )
     List<Attendance> findAttendancesByAttendanceTime(
             @Param("attendanceTime") TimeSelections attendanceTime
     );
 
+    /*
+     * JPQL
+     * */
     @Query(
             value = "select count(*) from ( " +
-                    "   select a.attendance_id " +
-                    "   from attendance a " +
-                    "   where attendance_time = :attendanceTime" +
-                    ")",
-            nativeQuery = true
+                    "   select a.attendanceId " +
+                    "   from Attendance a " +
+                    "   where a.attendanceTime = :attendanceTime" +
+                    ")"
     )
     long countOfAttendances(
-            @Param("attendanceTime") TimeSelections attendanceTime
-    );
-
-    @Query(
-            value = " select a.attendance_name " +
-                    " from attendance a " +
-                    " where 1=1 " +
-                    " and a.attendance_time = :attendanceTime",
-            nativeQuery = true
-    )
-    List<Attendance> countOfOption1Attenders(
             @Param("attendanceTime") TimeSelections attendanceTime
     );
 }
