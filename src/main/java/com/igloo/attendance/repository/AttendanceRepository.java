@@ -23,8 +23,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
     @Query(
                     " select a.attendanceId " +
                     " from Attendance a " +
-                    " where 1=1 " +
-                    " and a.attendanceTime = :attendanceTime"
+                    " where a.attendanceTime = :attendanceTime"
     )
     List<Attendance> findAttendancesByAttendanceTime(
             @Param("attendanceTime") TimeSelections attendanceTime
@@ -34,11 +33,9 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
      * JPQL
      * */
     @Query(
-            value = "select count(*) from ( " +
-                    "   select a.attendanceId " +
-                    "   from Attendance a " +
-                    "   where a.attendanceTime = :attendanceTime" +
-                    ")"
+            value = " select count(*) " +
+                    " from Attendance a " +
+                    " where a.attendanceTime = :attendanceTime"
     )
     long countOfAttendances(
             @Param("attendanceTime") TimeSelections attendanceTime
