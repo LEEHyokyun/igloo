@@ -1,4 +1,4 @@
-package com.igloo.common.util;
+package com.igloo.common.attendance.util;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -39,4 +39,7 @@ out/
 ### Application Config ###
 src/main/resources/application*.yml
 
+### User List ###
+src/main/java/com/igloo/common/attendance/util/MemberNames.java
+
 .DS_Store

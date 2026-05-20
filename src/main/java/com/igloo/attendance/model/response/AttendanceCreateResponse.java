@@ -1,9 +1,6 @@
 package com.igloo.attendance.model.response;
 
 import com.igloo.attendance.model.entity.Attendance;
-import com.igloo.common.util.TimeSelections;
-import lombok.Getter;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 
