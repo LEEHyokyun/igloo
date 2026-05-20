@@ -4,6 +4,7 @@ import com.igloo.attendance.model.entity.Attendance;
 import com.igloo.attendance.model.request.AttendanceCreateRequest;
 import com.igloo.attendance.model.response.AttendanceCreateResponse;
 import com.igloo.attendance.repository.AttendanceRepository;
+import com.igloo.common.attendance.util.MemberNames;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,9 @@ public class AttendanceService {
     @Transactional
     public AttendanceCreateResponse save(AttendanceCreateRequest attendanceCreateRequest) {
 
-        Attendance attendance = attendanceRepository.findByAttendanceName(attendanceCreateRequest.attendanceName());
+        Attendance attendance = attendanceRepository.findByAttendanceName(
+                MemberNames.of(attendanceCreateRequest.attendanceName())
+        );
 
         if(attendance == null){
             attendance = attendanceRepository.save(

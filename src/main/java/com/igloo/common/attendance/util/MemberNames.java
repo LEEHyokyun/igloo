@@ -39,8 +39,19 @@ public enum MemberNames {
             }
         }
 
-        log.error("[ERROR][TimeSelections.from] No Member name Matched found={}", nickName);
+        log.error("[ERROR][MemberNames.from] No Member name Matched found={}", nickName);
         return MemberNames.NO_MEMBER_EXCEPTION;
 
+    }
+
+    public static String of(String nickName){
+        for (MemberNames memberName : values()) {
+            if (memberName.nickName.equals(nickName)) {
+                return memberName.toString();
+            }
+        }
+
+        log.error("[ERROR][TimeSelections.of] No Member name Matched found={}", nickName);
+        return MemberNames.NO_MEMBER_EXCEPTION.toString();
     }
 }
