@@ -2,6 +2,7 @@ package com.igloo.attendance.controller;
 
 import com.igloo.attendance.model.request.AttendanceCreateRequest;
 import com.igloo.attendance.model.response.AttendanceCreateResponse;
+import com.igloo.attendance.model.response.AttendanceSelectResponse;
 import com.igloo.attendance.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,11 @@ public class AttendanceController {
     @GetMapping("/health-check")
     public String status(){
         return String.format("Now Working");
+    }
+
+    @GetMapping("/select")
+    public AttendanceSelectResponse select(){
+        return attendanceService.select();
     }
 
     @PostMapping("/save")
