@@ -44,6 +44,7 @@ public class AttendanceService {
 
         //미응답/지각
         List<String> noResponsers = Arrays.stream(MemberNames.values())
+                .filter(member -> member != MemberNames.NO_MEMBER_EXCEPTION)
                 .filter(member -> !responsers.contains(member))
                 .map(MemberNames::name)
                 .toList();
