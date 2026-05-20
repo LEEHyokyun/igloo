@@ -21,7 +21,7 @@ public class AttendanceService {
     public AttendanceCreateResponse save(AttendanceCreateRequest attendanceCreateRequest) {
 
         Attendance attendance = attendanceRepository.findByAttendanceName(
-                MemberNames.of(attendanceCreateRequest.attendanceName())
+                MemberNames.from(attendanceCreateRequest.attendanceName())
         );
 
         if(attendance == null){
