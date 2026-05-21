@@ -26,7 +26,7 @@ public enum MemberNames {
     홍세영("홍세영"),
     홍태의("홍태의"),
     나호준("HojunNa"),
-    NO_MEMBER_EXCEPTION("")
+    INVALIDATED_MEMBER("")
     ;
 
     private final String nickName;
@@ -40,7 +40,7 @@ public enum MemberNames {
         }
 
         log.error("[ERROR][MemberNames.from] No Member name Matched found={}", nickName);
-        return MemberNames.NO_MEMBER_EXCEPTION;
+        return MemberNames.INVALIDATED_MEMBER;
 
     }
 
@@ -51,7 +51,7 @@ public enum MemberNames {
             }
         }
 
-        log.error("[ERROR][TimeSelections.of] No Member name Matched found={}", nickName);
-        return MemberNames.NO_MEMBER_EXCEPTION.toString();
+        log.error("[ERROR][MemberNames.of] No Member name Matched found={}", nickName);
+        return MemberNames.INVALIDATED_MEMBER.toString();
     }
 }
