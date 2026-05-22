@@ -72,6 +72,17 @@ allprojects {
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
 
+        /*
+        * Test Containers for test comfortability(*datasource 주입 by serviceconnection)
+        * */
+        implementation 'org.springframework.boot:spring-boot-testcontainers'
+
+        /*
+        * test container / postgresql
+        * */
+        testImplementation 'org.testcontainers:junit-jupiter'
+        testImplementation 'org.testcontainers:postgresql'
+
         testCompileOnly 'org.projectlombok:lombok'
         testAnnotationProcessor 'org.projectlombok:lombok'
 
