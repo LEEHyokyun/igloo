@@ -28,6 +28,12 @@ allprojects {
 //        }
 //    }
 
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.batch:spring-batch-bom:5.2.3"
+        }
+    }
+
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -43,9 +49,14 @@ allprojects {
 
     dependencies {
         /*
-        * Spring Cloud
+        * web mvc
         * */
         implementation 'org.springframework.boot:spring-boot-starter-web'
+
+        /*
+        * batch
+        * */
+        implementation 'org.springframework.boot:spring-boot-starter-batch'
 
         /*
         * actuator

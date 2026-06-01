@@ -14,7 +14,7 @@
 | Language   | Java JDK 21           |
 | Framework  | Spring Boot 3.5.0     |
 | ORM        | JPA / Hibernate       |
-| Batch      | Spring Batch 6        |
+| Batch      | Spring Batch 5        |
 | Database   | Neon (PostgreSQL 17)  |
 | Deployment | Render                |
 | Build Tool | Gradle / Docker Build |
