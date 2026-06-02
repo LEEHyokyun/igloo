@@ -27,12 +27,16 @@ public class DataCleaningBatchSchedulingHandler {
     private final Job dataCleaningBatchJob;
     private final AttendanceRepository attendanceRepository;
 
-    @Scheduled(
-        fixedDelay = 5, //5sec
-        initialDelay = 5,
-        timeUnit = TimeUnit.SECONDS,
-        scheduler = "dataCleaningBatchSchedulingExecutor"
-    )
+//    @Scheduled(
+//        fixedDelay = 5, //5sec
+//        initialDelay = 5,
+//        timeUnit = TimeUnit.SECONDS,
+//        scheduler = "dataCleaningBatchSchedulingExecutor"
+//    )
+    /*
+    * 매주 일요일 13시
+    * */
+    @Scheduled(cron = "0 0 13 ? * SUN")
     public void dataCleaningBatchScheduling() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
         log.info("[DataCleaningBatchSchedulingHandler.dataCleaningBatchScheduling][INFO] DataCleaning Batch Process Started.");

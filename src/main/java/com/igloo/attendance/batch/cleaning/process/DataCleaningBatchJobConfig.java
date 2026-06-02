@@ -1,5 +1,6 @@
 package com.igloo.attendance.batch.cleaning.process;
 
+import com.igloo.attendance.repository.AttendanceRepository;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,8 @@ public class DataCleaningBatchJobConfig {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final DataSource dataSource;
+
+    private final AttendanceRepository attendanceRepository;
 
     private final String BATCH_JOB_NAME = "dataCleaningBatchJob";
     private final String BATCH_STEP_NAME = "dataCleaningBatchStep";
@@ -97,9 +100,10 @@ public class DataCleaningBatchJobConfig {
 
     @Bean
     public ItemWriter<DataCleaningBatchRecord> dataCleaningBatchWriter() {
-        return dataCleaningBatchRecord -> {
-            for (DataCleaningBatchRecord dataCleaningBatchRecords : dataCleaningBatchRecord) {
+        return dataCleaningBatchRecords -> {
+            for (DataCleaningBatchRecord dataCleaningBatchRecord : dataCleaningBatchRecords) {
                 log.info("[DataCleaningBatchJobConfig.dataCleaningBatchWriter][INFO] attendance : {}", dataCleaningBatchRecord);
+                attendanceRepository.deleteById(dataCleaningBatchRecord.attendanceId());
             }
         };
     }
