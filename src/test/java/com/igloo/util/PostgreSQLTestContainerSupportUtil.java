@@ -47,7 +47,7 @@ public class PostgreSQLTestContainerSupportUtil {
 
         for (int i = 1; i <= 5; i++) {
             Attendance attendance = Attendance.create(
-                String.valueOf(i),
+                    getMemberName(),
                     "출석",
                     getTimeSelection(),
                     "test reason " + i

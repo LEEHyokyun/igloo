@@ -43,7 +43,8 @@ public class DataCleaningBatchJobConfig {
     private final String BATCH_JOB_NAME = "dataCleaningBatchJob";
     private final String BATCH_STEP_NAME = "dataCleaningBatchStep";
     private final String BATCH_STEP_READER = "dataCleaningBatchStepReader";
-    private final String BATCH_READER_PARAMETER_ATTENDANCE_STATUS = "N";
+    private final String BATCH_READER_PARAMETER_ATTENDANCE_STATUS_CANT_ATTENDANCE = "N";
+    private final String BATCH_READER_PARAMETER_ATTENDANCE_STATUS_CAN_ATTENDANCE = "Y";
 
     @Bean
     public Job dataCleaningBatchJob() {
@@ -68,7 +69,8 @@ public class DataCleaningBatchJobConfig {
                 .dataSource(dataSource)
                 .queryProvider(pagingQueryProvider(dataSource))
                 .parameterValues(Map.of(
-                        "attendanceStatus", BATCH_READER_PARAMETER_ATTENDANCE_STATUS
+                        "attendanceStatus1", BATCH_READER_PARAMETER_ATTENDANCE_STATUS_CAN_ATTENDANCE,
+                        "attendanceStatus2", BATCH_READER_PARAMETER_ATTENDANCE_STATUS_CANT_ATTENDANCE
                         //"createdAt", LocalDateTime.now().minusDays(1))
                         )
                 )
@@ -85,7 +87,7 @@ public class DataCleaningBatchJobConfig {
         queryProviderFactory.setDataSource(dataSource);
         queryProviderFactory.setSelectClause("SELECT attendance_id, attendance_name, attendance_status, attendance_time, reason, created_at, updated_at");
         queryProviderFactory.setFromClause("FROM attendance");
-        queryProviderFactory.setWhereClause("WHERE attendance_status = :attendanceStatus");
+        queryProviderFactory.setWhereClause("WHERE attendance_status IN (:attendanceStatus1, :attendanceStatus2)");
         queryProviderFactory.setSortKeys(Map.of("created_at", Order.ASCENDING));
 
         try {
