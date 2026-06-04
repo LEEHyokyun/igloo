@@ -34,6 +34,8 @@ class AttendanceServiceUnitTest extends PostgreSQLTestContainerSupportUtil {
         AttendanceSelectResponse attendanceSelectResponse = attendanceService.select();
 
         //then
+        log.info(attendanceSelectResponse.toString());
+
         Assertions.assertEquals(5,
                 attendanceSelectResponse.option1AttenderCount() + attendanceSelectResponse.option2AttenderCount() + attendanceSelectResponse.option3AttenderCount()
                 );
@@ -59,8 +61,8 @@ class AttendanceServiceUnitTest extends PostgreSQLTestContainerSupportUtil {
         Assertions.assertEquals("이효균",
                 attendanceCreateResponse.attendanceName()
         );
-        Assertions.assertEquals("출석",
-                attendanceCreateResponse.attendanceStatus()
+        Assertions.assertEquals("Y",
+                attendanceCreateResponse.attendanceOption()
         );
     }
 

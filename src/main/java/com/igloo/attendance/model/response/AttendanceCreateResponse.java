@@ -1,14 +1,16 @@
 package com.igloo.attendance.model.response;
 
 import com.igloo.attendance.model.entity.Attendance;
+import com.igloo.common.attendance.util.TimeSelections;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public record AttendanceCreateResponse (
         Long attendanceId,
         String attendanceName,
-        String attendanceStatus,
-        Long attendanceTime,
+        String attendanceOption,
+        LocalTime attendanceTime,
         String reason,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
@@ -19,8 +21,8 @@ public record AttendanceCreateResponse (
         return new AttendanceCreateResponse(
                 attendance.getAttendanceId(),
                 attendance.getAttendanceName().name(),
-                attendance.getAttendanceStatus().getOption(),
-                attendance.getAttendanceTime().getTime(),
+                attendance.getAttendanceOption().name(),
+                TimeSelections.of(attendance.getAttendanceTime()),
                 attendance.getReason(),
                 attendance.getCreatedAt(),
                 attendance.getUpdatedAt()

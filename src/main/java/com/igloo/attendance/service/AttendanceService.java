@@ -51,16 +51,16 @@ public class AttendanceService {
 
         //summarized
         List<String> option1AttenderList =
-                groupedAttendances.getOrDefault(TimeSelections.OPTION1, List.of());
+                groupedAttendances.getOrDefault(TimeSelections.ATTENDANCE_8, List.of());
 
         List<String> option2AttenderList =
-                groupedAttendances.getOrDefault(TimeSelections.OPTION2, List.of());
+                groupedAttendances.getOrDefault(TimeSelections.ATTENDANCE_930, List.of());
 
         List<String> option3AttenderList =
-                groupedAttendances.getOrDefault(TimeSelections.OPTION3, List.of());
+                groupedAttendances.getOrDefault(TimeSelections.ATTENDANCE_10, List.of());
 
         List<String> absenceList =
-                groupedAttendances.getOrDefault(TimeSelections.NONE, List.of());
+                groupedAttendances.getOrDefault(TimeSelections.ATTENDANCE_NONE, List.of());
 
 
         return AttendanceSelectResponse.from(

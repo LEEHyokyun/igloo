@@ -1,6 +1,7 @@
 package com.igloo.attendance.model.entity;
 
 import com.igloo.common.attendance.util.AttendanceOptions;
+import com.igloo.common.attendance.util.AttendanceStatus;
 import com.igloo.common.attendance.util.MemberNames;
 import com.igloo.common.attendance.util.TimeSelections;
 import jakarta.persistence.*;
@@ -26,22 +27,25 @@ public class Attendance {
     private MemberNames attendanceName;
 
     @Enumerated(EnumType.STRING)
-    private AttendanceOptions attendanceStatus;
+    private AttendanceOptions attendanceOption;
 
     @Enumerated(EnumType.STRING)
     private TimeSelections attendanceTime;
     private String reason;
 
+    @Enumerated(EnumType.STRING)
+    private AttendanceStatus attendanceStatus;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public static Attendance create(String attendanceName, String attendanceStatus, Long attendanceTime, String reason) {
+    public static Attendance create(String attendanceName, String attendanceOption, Long attendanceTime, String reason) {
 
         Attendance attendance = new Attendance();
 
         attendance.attendanceName = MemberNames.from(attendanceName);
-        attendance.attendanceStatus = AttendanceOptions.from(attendanceStatus);
-        attendance.attendanceTime = TimeSelections.from(attendanceTime);
+        attendance.attendanceOption = AttendanceOptions.from(attendanceOption);
+        attendance.attendanceTime = TimeSelections.to(attendanceTime);
         attendance.reason = reason;
         attendance.createdAt = LocalDateTime.now();
         attendance.updatedAt = attendance.createdAt;
@@ -49,12 +53,22 @@ public class Attendance {
         return attendance;
     }
 
-    public Attendance update(String attendanceStatus, Long attendanceTime, String reason){
-        this.attendanceStatus = AttendanceOptions.from(attendanceStatus);;
-        this.attendanceTime = TimeSelections.from(attendanceTime);
+    public Attendance update(String attendanceOption, Long attendanceTime, String reason){
+        this.attendanceOption = AttendanceOptions.from(attendanceOption);;
+        this.attendanceTime = TimeSelections.to(attendanceTime);
         this.reason = reason;
         this.updatedAt = LocalDateTime.now();
 
         return this;
+    }
+
+    public static Attendance summarize(Long attendanceId, AttendanceStatus attendanceStatus){
+
+        Attendance attendance = new Attendance();
+
+        attendance.attendanceId = attendanceId;
+        attendance.attendanceStatus = attendanceStatus;
+
+        return attendance;
     }
 }

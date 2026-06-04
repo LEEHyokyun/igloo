@@ -1,5 +1,6 @@
 package com.igloo.common.attendance.util;
 
+import com.igloo.attendance.model.entity.Attendance;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,21 +10,38 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public enum AttendanceOptions {
     Y("출석"),
-    N("불참"),
-    NONE("NO OPTIONS");
+    N("불참")
+    ;
 
     private final String option;
 
+    //String > enum
     public static AttendanceOptions from(String option){
+
+        AttendanceOptions returnValue = null;
 
         for (AttendanceOptions attendanceOption : values()) {
             if (attendanceOption.option.equals(option)) {
-                return attendanceOption;
+                return returnValue = attendanceOption;
             }
         }
 
-        log.error("[ERROR][TimeSelections.from] No attendance options found={}", option);
-        return AttendanceOptions.NONE;
+        return returnValue;
+
+    }
+
+    //enum > String
+    public static String from(AttendanceOptions option){
+
+        String  returnValue = null;
+
+        for (AttendanceOptions attendanceOption : values()) {
+            if (attendanceOption.name().equals(option.name())) {
+                returnValue = attendanceOption.option;
+            }
+        }
+
+        return returnValue;
 
     }
 }

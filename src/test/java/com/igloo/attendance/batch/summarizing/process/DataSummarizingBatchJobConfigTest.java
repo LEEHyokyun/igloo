@@ -1,6 +1,10 @@
-package com.igloo.attendance.batch.cleaning.process;
+package com.igloo.attendance.batch.summarizing.process;
 
+import com.igloo.attendance.batch.cleaning.process.DataCleaningBatchJobConfig;
+import com.igloo.attendance.batch.cleaning.process.DataCleaningBatchRecord;
+import com.igloo.attendance.model.entity.Attendance;
 import com.igloo.attendance.repository.AttendanceRepository;
+import com.igloo.common.attendance.util.AttendanceStatus;
 import com.igloo.util.PostgreSQLTestContainerSupportUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -14,12 +18,12 @@ import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-class DataCleaningBatchJobConfigTest extends PostgreSQLTestContainerSupportUtil {
+class DataSummarizingBatchJobConfigTest extends PostgreSQLTestContainerSupportUtil {
 
     @Autowired
     private AttendanceRepository attendanceRepository;
@@ -39,21 +43,21 @@ class DataCleaningBatchJobConfigTest extends PostgreSQLTestContainerSupportUtil 
     @Autowired
     private DataSource dataSource;
 
-    @DisplayName("[단위테스트] 데이터 삭제 배치 Reader 테스트")
+    @DisplayName("[단위테스트] 데이터 요약 배치 Reader 테스트")
     @Test
     public void dataCleaningBatchJobReaderTest() throws Exception {
 
         //given
-        DataCleaningBatchJobConfig config =
-                new DataCleaningBatchJobConfig(
+        DataSummarizingBatchJobConfig config =
+                new DataSummarizingBatchJobConfig(
                         Mockito.mock(JobRepository.class),
                         transactionManager,
                         dataSource,
                         attendanceRepository
                 );
 
-        JdbcPagingItemReader<DataCleaningBatchRecord> reader =
-                config.dataCleaningBatchReader(dataSource);
+        JdbcPagingItemReader<DataSummarizingBatchRecord> reader =
+                config.dataSummarizingBatchReader(dataSource);
 
         reader.afterPropertiesSet();
         reader.open(new ExecutionContext());
@@ -64,7 +68,7 @@ class DataCleaningBatchJobConfigTest extends PostgreSQLTestContainerSupportUtil 
         log.info("into reader test");
         //while (reader.read() != null) { //cursor 이동하므로 정확한 결과 확보 불가
         while(true){
-            DataCleaningBatchRecord item = reader.read();
+            DataSummarizingBatchRecord item = reader.read();
 
             if(item == null) break;
 
@@ -79,26 +83,34 @@ class DataCleaningBatchJobConfigTest extends PostgreSQLTestContainerSupportUtil 
         assertEquals(5, count);
     }
 
-    @DisplayName("[단위테스트] 데이터 삭제 배치 Writer 테스트")
+    @DisplayName("[단위테스트] 데이터 요약 배치 Writer 테스트")
     @Test
     public void dataCleaningBatchJobWriterTest() throws Exception {
 
         //given
-        DataCleaningBatchJobConfig config =
-                new DataCleaningBatchJobConfig(
+        //String[] resList = new String[]{"출석", "결석", "불참", "지각"};
+//        List<String> resList = List.of(
+//                "출석",
+//                "결석",
+//                "불참",
+//                "지각"
+//        );
+
+        DataSummarizingBatchJobConfig config =
+                new DataSummarizingBatchJobConfig(
                         Mockito.mock(JobRepository.class),
                         transactionManager,
                         dataSource,
                         attendanceRepository
                 );
 
-        ItemWriter<DataCleaningBatchRecord> writer =
-                config.dataCleaningBatchWriter();
+        ItemWriter<DataSummarizingBatchRecord> writer =
+                config.dataSummarizingBatchWriter();
 
-        List<DataCleaningBatchRecord> itemList =
+        List<DataSummarizingBatchRecord> itemList =
                 attendanceRepository.findAll()
                         .stream()
-                        .map(attendance -> new DataCleaningBatchRecord(
+                        .map(attendance -> new DataSummarizingBatchRecord(
                                 attendance.getAttendanceId(),
                                 attendance.getAttendanceName().name(),
                                 attendance.getAttendanceOption().name(),
@@ -115,9 +127,18 @@ class DataCleaningBatchJobConfigTest extends PostgreSQLTestContainerSupportUtil 
         log.info("into writer test");
         writer.write(new Chunk<>(itemList));
 
-
         //then
         //assertEquals(5, itemList.size());
-        assertEquals(0, attendanceRepository.count());
+        List<Attendance> resultList =
+                attendanceRepository.findAll().stream().toList();
+
+        for(Attendance result : resultList){
+            log.info("CHECK RESULT : {}", result.getAttendanceStatus().name());
+
+            if(result.getAttendanceStatus() != AttendanceStatus.NO_STATUS) count++;
+        }
+
+        assertEquals(5, attendanceRepository.count());
     }
+
 }

@@ -69,7 +69,7 @@ public class PostgreSQLTestContainerSupportUtil {
     protected long getTimeSelection() {
 
         TimeSelections[] values = Arrays.stream(TimeSelections.values())
-                .filter(timeSelections -> timeSelections != TimeSelections.NONE)
+                .filter(timeSelections -> timeSelections != TimeSelections.ATTENDANCE_NONE)
                 .toArray(TimeSelections[]::new);
 
         return values[RANDOM.nextInt(values.length)].getTime();
@@ -78,15 +78,15 @@ public class PostgreSQLTestContainerSupportUtil {
 
     protected String getMemberName(){
 
-        MemberNames[] memberNames = new MemberNames[]{
-                MemberNames.김민주,
-                MemberNames.강래구,
-                MemberNames.김평숙,
-                MemberNames.송재연,
-                MemberNames.나호준
+        String[] memberNames = new String[]{
+                MemberNames.김민주.getNickName(),
+                MemberNames.강래구.getNickName(),
+                MemberNames.김평숙.getNickName(),
+                MemberNames.송재연.getNickName(),
+                MemberNames.나호준.getNickName()
         };
 
-        return memberNames[RANDOM.nextInt(memberNames.length)].name();
+        return memberNames[RANDOM.nextInt(memberNames.length)];
 
     }
 

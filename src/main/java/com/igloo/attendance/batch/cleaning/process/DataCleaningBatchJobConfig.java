@@ -85,9 +85,9 @@ public class DataCleaningBatchJobConfig {
         //native query
         //with parameter & dataSource
         queryProviderFactory.setDataSource(dataSource);
-        queryProviderFactory.setSelectClause("SELECT attendance_id, attendance_name, attendance_status, attendance_time, reason, created_at, updated_at");
+        queryProviderFactory.setSelectClause("SELECT attendance_id, attendance_name, attendance_option, attendance_time, reason, created_at, updated_at");
         queryProviderFactory.setFromClause("FROM attendance");
-        queryProviderFactory.setWhereClause("WHERE attendance_status IN (:attendanceStatus1, :attendanceStatus2)");
+        queryProviderFactory.setWhereClause("WHERE attendance_option IN (:attendanceStatus1, :attendanceStatus2)");
         queryProviderFactory.setSortKeys(Map.of("created_at", Order.ASCENDING));
 
         try {

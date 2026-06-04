@@ -1,10 +1,8 @@
-package com.igloo.attendance.batch.cleaning.process;
-
-import lombok.Data;
+package com.igloo.attendance.batch.summarizing.process;
 
 import java.time.LocalDateTime;
 
-public record DataCleaningBatchRecord(
+public record DataSummarizingBatchRecord(
         Long attendanceId,
         String attendanceName,
         String attendanceOption,
