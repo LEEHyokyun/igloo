@@ -14,6 +14,9 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -39,7 +42,7 @@ public class DataSummarzingBatchSchedulingHandler {
         log.info("[DataSummarizingBatchSchedulingHandler.dataSummarizingBatchScheduling][INFO] DataCleaning Batch Process Started.");
 
         jobLauncher.run(dataSummarizingBatchJob, new JobParametersBuilder()
-                .addLong("timestamp", System.currentTimeMillis())
+                .addString("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE))
                 .toJobParameters()
         );
 
