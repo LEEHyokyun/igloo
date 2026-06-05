@@ -34,9 +34,9 @@ public class DataSummarzingBatchSchedulingHandler {
 //        scheduler = "dataCleaningBatchSchedulingExecutor"
 //    )
     /*
-    * 매주 일요일 10시 10분
+    * 매주 토요일 10시 10분
     * */
-    @Scheduled(cron = "0 10 10 ? * SUN")
+    @Scheduled(cron = "0 10 10 ? * SAT")
     public void dataSummarizingBatchScheduling() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
         log.info("[DataSummarizingBatchSchedulingHandler.dataSummarizingBatchScheduling][INFO] DataCleaning Batch Process Started.");
