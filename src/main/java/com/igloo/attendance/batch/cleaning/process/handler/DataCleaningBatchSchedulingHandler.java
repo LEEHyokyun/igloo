@@ -41,7 +41,10 @@ public class DataCleaningBatchSchedulingHandler {
 
         log.info("[DataCleaningBatchSchedulingHandler.dataCleaningBatchScheduling][INFO] DataCleaning Batch Process Started.");
 
-        jobLauncher.run(dataCleaningBatchJob, new JobParameters());
+        jobLauncher.run(dataCleaningBatchJob, new JobParametersBuilder()
+                        .addLong("timestamp", System.currentTimeMillis())
+                        .toJobParameters()
+        );
 
     }
 }
