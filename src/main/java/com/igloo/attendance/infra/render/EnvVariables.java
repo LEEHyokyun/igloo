@@ -12,12 +12,10 @@ import javax.sql.DataSource;
 @Configuration
 public class EnvVariables {
 
-    @PostConstruct
-    public void check() {
-        log.info("spring.batch.job.enabled={}",
-                System.getProperty("spring.batch.job.enabled")
-        );
-    }
+    /*
+    * application-prod.yml을 읽을 수는 있으나 boot 시점이 아닌 객체 시점.
+    * 따라서 환경변수 주입은 boot 시점에 이루어질 수 있도록 구성한다.
+    * */
 
     @Bean
     public DataSource dataSource() {
