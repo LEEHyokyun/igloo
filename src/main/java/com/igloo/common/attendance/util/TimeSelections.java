@@ -21,11 +21,13 @@ public enum TimeSelections {
     private final long time;
 
     //long to timeSelection
-    public static TimeSelections to(long time){
+    public static TimeSelections to(Long time){
 
-        for (TimeSelections timeSelection : values()) {
-            if (timeSelection.time == time) {
-                return timeSelection;
+        if(time != null){
+            for (TimeSelections timeSelection : values()) {
+                if (timeSelection.time == time) {
+                    return timeSelection;
+                }
             }
         }
 
@@ -33,7 +35,7 @@ public enum TimeSelections {
     }
 
     //long to local time
-    public static LocalTime from(long time){
+    public static LocalTime from(Long time){
 
         TimeSelections returnValue = null;
 

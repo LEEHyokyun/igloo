@@ -5,6 +5,7 @@ import com.igloo.attendance.batch.cleaning.process.DataCleaningBatchRecord;
 import com.igloo.attendance.model.entity.Attendance;
 import com.igloo.attendance.repository.AttendanceRepository;
 import com.igloo.common.attendance.util.AttendanceStatus;
+import com.igloo.common.attendance.util.MemberNames;
 import com.igloo.util.PostgreSQLTestContainerSupportUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -96,6 +97,17 @@ class DataSummarizingBatchJobConfigTest extends PostgreSQLTestContainerSupportUt
 //                "지각"
 //        );
 
+        //불참 데이터 추가
+        Attendance additionalTestData = Attendance.create(
+                MemberNames.이효균.getNickName(),
+                "불참",
+                null,
+                "test reason " + 6
+        );
+        testEntityManager.persist(additionalTestData);
+        testEntityManager.flush();
+        testEntityManager.clear();
+
         DataSummarizingBatchJobConfig config =
                 new DataSummarizingBatchJobConfig(
                         Mockito.mock(JobRepository.class),
@@ -138,7 +150,7 @@ class DataSummarizingBatchJobConfigTest extends PostgreSQLTestContainerSupportUt
             if(result.getAttendanceStatus() != AttendanceStatus.NO_STATUS) count++;
         }
 
-        assertEquals(5, attendanceRepository.count());
+        assertEquals(6, attendanceRepository.count());
     }
 
 }

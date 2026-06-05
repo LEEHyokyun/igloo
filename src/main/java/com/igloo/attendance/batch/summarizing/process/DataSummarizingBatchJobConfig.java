@@ -104,14 +104,14 @@ public class DataSummarizingBatchJobConfig {
     public ItemWriter<DataSummarizingBatchRecord> dataSummarizingBatchWriter() {
         return dataSummarizingBatchRecords -> {
             for (DataSummarizingBatchRecord dataSummarizingBatchRecord : dataSummarizingBatchRecords) {
-                log.info("[DataCleaningBatchJobConfig.dataCleaningBatchWriter][INFO] attendance : {}", dataSummarizingBatchRecord);
+                log.info("[DataCleaningBatchJobConfig.dataSummarizingBatchWriter][INFO] attendance : {}", dataSummarizingBatchRecord);
 
                 long attendanceId = dataSummarizingBatchRecord.attendanceId();
                 String attendanceOption = dataSummarizingBatchRecord.attendanceOption();
                 LocalTime attendanceTime = TimeSelections.of(
                         dataSummarizingBatchRecord.attendanceTime()
                         );
-                LocalTime now = LocalTime.now();
+                LocalTime standardTime = dataSummarizingBatchRecord.createdAt().toLocalTime();
 
                 /*
                 * 옵션 비교는 Enum 기반으로 진행하여 결합도를 낮춘다.
@@ -126,7 +126,7 @@ public class DataSummarizingBatchJobConfig {
                             AttendanceOptions.Y.name()
                     )
                 ) {
-                    if (now.isAfter(attendanceTime)) {
+                    if (standardTime.isAfter(attendanceTime)) {
                         //지각
                         attendanceRepository.save(
                                 Attendance.summarize(
@@ -165,7 +165,7 @@ public class DataSummarizingBatchJobConfig {
                 }
 
                 /*
-                 * 출석/불참 데이터가 아에 존재하지 않을 경우 결석
+                 * 출석/불참 데이터가 아에 존재하지 않을 경우 미응답/결석
                  * */
 
             }
