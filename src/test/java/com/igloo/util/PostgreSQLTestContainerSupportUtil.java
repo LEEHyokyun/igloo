@@ -68,11 +68,13 @@ public class PostgreSQLTestContainerSupportUtil {
 
     protected long getTimeSelection() {
 
-        TimeSelections[] values = Arrays.stream(TimeSelections.values())
+        long[] values = Arrays.stream(TimeSelections.values())
                 .filter(timeSelections -> timeSelections != TimeSelections.ATTENDANCE_NONE)
-                .toArray(TimeSelections[]::new);
+                .map(timeSelections -> timeSelections.getTime())
+                .mapToLong(Long::longValue)
+                .toArray();
 
-        return values[RANDOM.nextInt(values.length)].getTime();
+        return values[RANDOM.nextInt(values.length)];
 
     }
 

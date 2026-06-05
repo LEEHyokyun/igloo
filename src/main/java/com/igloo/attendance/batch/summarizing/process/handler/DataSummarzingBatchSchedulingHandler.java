@@ -22,8 +22,9 @@ public class DataSummarzingBatchSchedulingHandler {
     private final JobLauncher jobLauncher;
     private final Job dataSummarizingBatchJob;
     private final AttendanceRepository attendanceRepository;
+    private final Job dataCleaningBatchJob;
 
-//    @Scheduled(
+    //    @Scheduled(
 //        fixedDelay = 5, //5sec
 //        initialDelay = 5,
 //        timeUnit = TimeUnit.SECONDS,
@@ -33,9 +34,9 @@ public class DataSummarzingBatchSchedulingHandler {
     * 매주 일요일 10시 10분
     * */
     @Scheduled(cron = "0 10 10 ? * SUN")
-    public void dataCleaningBatchScheduling() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+    public void dataSummarizingBatchScheduling() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
-        log.info("[DataCleaningBatchSchedulingHandler.dataCleaningBatchScheduling][INFO] DataCleaning Batch Process Started.");
+        log.info("[DataSummarizingBatchSchedulingHandler.dataSummarizingBatchScheduling][INFO] DataCleaning Batch Process Started.");
 
         jobLauncher.run(dataSummarizingBatchJob, new JobParametersBuilder()
                 .addLong("timestamp", System.currentTimeMillis())

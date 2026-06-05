@@ -20,7 +20,7 @@ public enum TimeSelections {
     private final LocalTime localTime;
     private final long time;
 
-    //long to timeSelection
+    //long to timeSelection(Attendance 도메인 컨텍스트 용)
     public static TimeSelections to(Long time){
 
         if(time != null){
@@ -48,7 +48,7 @@ public enum TimeSelections {
         return returnValue.localTime;
     }
 
-    //timeSelection to local time
+    //timeSelection to local time(Response 용)
     public static LocalTime of(TimeSelections option){
 
         for (TimeSelections timeSelection : values()) {
