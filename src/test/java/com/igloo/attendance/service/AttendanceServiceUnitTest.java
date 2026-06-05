@@ -15,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
@@ -49,12 +51,13 @@ class AttendanceServiceUnitTest extends PostgreSQLTestContainerSupportUtil {
                 new AttendanceCreateRequest(
                                     MemberNames.이효균.name(),
                                      "출석",
-                                    getTimeSelection(),
+                                    8,
                                     "test reason"
                 )
         );
 
         //then
+        log.info("CHECK CREATE RESPONSE : {}", attendanceCreateResponse.toString());
         Assertions.assertEquals(6,
                 attendanceCreateResponse.attendanceId()
         );
@@ -63,6 +66,9 @@ class AttendanceServiceUnitTest extends PostgreSQLTestContainerSupportUtil {
         );
         Assertions.assertEquals("Y",
                 attendanceCreateResponse.attendanceOption()
+        );
+        Assertions.assertEquals(LocalTime.of(8,0),
+                attendanceCreateResponse.attendanceTime()
         );
     }
 
