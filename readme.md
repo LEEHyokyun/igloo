@@ -19,9 +19,9 @@
 | Deployment | Render                |
 | Build Tool | Gradle / Docker Build |
 
-## ⚙️ 시스템 흐름도
+## ⚙️ 시스템 구성도
 
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 ## 📈 개선환경
 
