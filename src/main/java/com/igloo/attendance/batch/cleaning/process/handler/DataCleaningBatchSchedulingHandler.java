@@ -29,12 +29,12 @@ public class DataCleaningBatchSchedulingHandler {
     private final Job dataCleaningBatchJob;
     private final AttendanceRepository attendanceRepository;
 
-//    @Scheduled(
-//        fixedDelay = 5, //5sec
-//        initialDelay = 5,
-//        timeUnit = TimeUnit.SECONDS,
-//        scheduler = "dataCleaningBatchSchedulingExecutor"
-//    )
+    @Scheduled(
+        fixedDelay = 365, //유즈케이스 재검토 중
+        initialDelay = 365,
+        timeUnit = TimeUnit.DAYS,
+        scheduler = "dataCleaningBatchScheduler"
+    )
     /*
     * 매주 일요일 13시
     * */

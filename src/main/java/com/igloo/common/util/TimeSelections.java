@@ -1,11 +1,9 @@
-package com.igloo.common.attendance.util;
+package com.igloo.common.util;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Slf4j

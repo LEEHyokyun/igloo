@@ -1,7 +1,7 @@
 package com.igloo.attendance.model.response;
 
 import com.igloo.attendance.model.entity.Attendance;
-import com.igloo.common.attendance.util.TimeSelections;
+import com.igloo.common.util.TimeSelections;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

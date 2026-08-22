@@ -1,8 +1,8 @@
 package com.igloo.util;
 
 import com.igloo.attendance.model.entity.Attendance;
-import com.igloo.common.attendance.util.MemberNames;
-import com.igloo.common.attendance.util.TimeSelections;
+import com.igloo.common.util.MemberNames;
+import com.igloo.common.util.TimeSelections;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Random;
 

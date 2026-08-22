@@ -3,7 +3,7 @@ package com.igloo.attendance.service;
 import com.igloo.attendance.model.request.AttendanceCreateRequest;
 import com.igloo.attendance.model.response.AttendanceCreateResponse;
 import com.igloo.attendance.model.response.AttendanceSelectResponse;
-import com.igloo.common.attendance.util.MemberNames;
+import com.igloo.common.util.MemberNames;
 import com.igloo.util.PostgreSQLTestContainerSupportUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -16,8 +16,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @DataJpaTest

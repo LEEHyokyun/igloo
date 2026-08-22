@@ -1,6 +1,5 @@
-package com.igloo.common.attendance.util;
+package com.igloo.common.util;
 
-import com.igloo.attendance.model.entity.Attendance;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,9 @@
 package com.igloo.attendance.batch.summarizing.process;
 
-import com.igloo.attendance.batch.cleaning.process.DataCleaningBatchJobConfig;
-import com.igloo.attendance.batch.cleaning.process.DataCleaningBatchRecord;
 import com.igloo.attendance.model.entity.Attendance;
 import com.igloo.attendance.repository.AttendanceRepository;
-import com.igloo.common.attendance.util.AttendanceStatus;
-import com.igloo.common.attendance.util.MemberNames;
+import com.igloo.common.util.AttendanceStatus;
+import com.igloo.common.util.MemberNames;
 import com.igloo.util.PostgreSQLTestContainerSupportUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -23,8 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

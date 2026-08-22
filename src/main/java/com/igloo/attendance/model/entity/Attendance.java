@@ -1,9 +1,9 @@
 package com.igloo.attendance.model.entity;
 
-import com.igloo.common.attendance.util.AttendanceOptions;
-import com.igloo.common.attendance.util.AttendanceStatus;
-import com.igloo.common.attendance.util.MemberNames;
-import com.igloo.common.attendance.util.TimeSelections;
+import com.igloo.common.util.AttendanceOptions;
+import com.igloo.common.util.AttendanceStatus;
+import com.igloo.common.util.MemberNames;
+import com.igloo.common.util.TimeSelections;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

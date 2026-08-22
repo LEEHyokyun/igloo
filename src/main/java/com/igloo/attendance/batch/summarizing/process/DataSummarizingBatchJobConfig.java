@@ -1,11 +1,10 @@
 package com.igloo.attendance.batch.summarizing.process;
 
-import com.igloo.attendance.batch.cleaning.process.DataCleaningBatchRecord;
 import com.igloo.attendance.model.entity.Attendance;
 import com.igloo.attendance.repository.AttendanceRepository;
-import com.igloo.common.attendance.util.AttendanceOptions;
-import com.igloo.common.attendance.util.AttendanceStatus;
-import com.igloo.common.attendance.util.TimeSelections;
+import com.igloo.common.util.AttendanceOptions;
+import com.igloo.common.util.AttendanceStatus;
+import com.igloo.common.util.TimeSelections;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -25,7 +24,6 @@ import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Map;
 

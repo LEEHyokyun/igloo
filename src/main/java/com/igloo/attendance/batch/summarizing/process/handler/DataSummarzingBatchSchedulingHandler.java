@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
@@ -27,12 +28,12 @@ public class DataSummarzingBatchSchedulingHandler {
     private final AttendanceRepository attendanceRepository;
     private final Job dataCleaningBatchJob;
 
-    //    @Scheduled(
-//        fixedDelay = 5, //5sec
-//        initialDelay = 5,
-//        timeUnit = TimeUnit.SECONDS,
-//        scheduler = "dataCleaningBatchSchedulingExecutor"
-//    )
+        @Scheduled(
+        fixedDelay = 365, //유즈케이스 재검토 중
+        initialDelay = 365,
+        timeUnit = TimeUnit.DAYS,
+        scheduler = "dataSummarizingBatchScheduler"
+    )
     /*
     * 매주 토요일 10시 10분
     * */
