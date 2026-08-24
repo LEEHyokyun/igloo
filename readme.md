@@ -29,29 +29,34 @@
 
 > 현재 Docker 기반 배포를 사용 중이며, 빌드 시간이 다소 긴 편(3~5분)입니다.
 
-[TOBE] 
+[TOBE]
 - Gradle Dependency Cache 최적화
 - Multi-stage Docker Build 적용
 - Layer 분리 기반 캐시 활용
-- 이 외 Render / Docker Build 기반의 배포 시 속도 개선 방안(*프리티어가 시간 단위 소모) 
+- 이 외 Render / Docker Build 기반의 배포 시 속도 개선 방안(*프리티어가 시간 단위 소모)
 
-### 2.Render Cold Start 문제
+### ~~2.Render Cold Start 문제~~
 
 > Render 프리티어 특성 상 일정 시간(약 15분) 요청이 없으면 인스턴스가 슬립 상태로 전환됩니다.
 - 첫 요청 시 응답 지연 발생 가능
 
-[TOBE]
+[ASIS]
 - Health Check Ping
   - Batch / 스케쥴러 구성 기반의 Keep-Alive 검토
+
+[TOBE]
+- [UptimeRobot](https://uptimerobot.com/)을 통한 10분 간격의 외부 HTTP Request 요청 진행
+  - Batch진행 시 WAS의 alive를 보장해야 하며, 이를 위해서는 외부의 요청이 반드시 필요합니다.
+  - 프리티어로 10분 간격의 외부 요청을 전송할 수 있는 uptimerobot을 활용하여 backend 서버의 alive를 보장할 수 있습니다.
 
 ### 3. 메신저 챗봇 운영 한계
 
 > 사용자 식별 한계, 사용자 등록 운용 시 진짜 본인인지 판별을 위한 식별자 설계가 필요합니다.
 
 [TOBE]
-  - 고유 식별자 기반 검증
-  - 멤버 도메인(Life Cycle) 추가 운용
-  - 멤버 검증 로직 개선
+- 고유 식별자 기반 검증
+- 멤버 도메인(Life Cycle) 추가 운용
+- 멤버 검증 로직 개선
 
 > 현재 챗봇 계정이 실제 모바일 계정과 동일하여, 운영자(챗봇서버)가 해당 톡방을 직접 보고 있는 경우 이벤트 감지가 정상 동작하지 않을 수 있습니다.
 
