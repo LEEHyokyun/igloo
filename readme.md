@@ -49,6 +49,36 @@
   - Batch진행 시 WAS의 alive를 보장해야 하며, 이를 위해서는 외부의 요청이 반드시 필요합니다.
   - 프리티어로 10분 간격의 외부 요청을 전송할 수 있는 uptimerobot을 활용하여 backend 서버의 alive를 보장할 수 있습니다.
 
+※ webSocket 연결 유지를 통한 health ping도 고려하였으나, 연결 비용이 HTTP보다 더 비싸기에 배제.
+-  websocket의 빠른 응답 및 상호작용을 기대하였으나, 기존 HTTP GET 방식에 비해 유리한 부분이 없음.
+
+```scss
+MonitorRobot
+     │
+     │ TCP connection
+     ▼
+     │
+     │ TLS handshake
+     ▼
+     │
+     │ HTTP WebSocket Upgrade
+     ▼
+     │
+     │ 101 Switching Protocols
+     ▼
+WebSocket 연결
+     │
+     │ PING
+     ▼
+     │
+     │ PONG
+     ▼
+Disconnect
+```
+
+결국 HTTP 연결을 완료한 이후에 해당 TCP 연결 위에서 WebSocket 프로토콜로 전환하는 과정.<br/>
+health ping의 목적(간결함 및 구조적 경량성)이나 비용 측면에서 선택할만한 방법은 아닌것으로 판단하였습니다.
+
 ### 3. 메신저 챗봇 운영 한계
 
 > 사용자 식별 한계, 사용자 등록 운용 시 진짜 본인인지 판별을 위한 식별자 설계가 필요합니다.
